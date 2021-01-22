@@ -15,14 +15,16 @@ h1{
 
 h2 {
   font-size: 2.8rem;
+  padding-top: 10px;
 }
 h3 {
   font-size: 2.4rem;
 }
 header {
   width: 100%;
-  height: 150px;
-  padding-top: 25px;
+  height: 250px;
+  padding: 30px;
+
 }
 .cardContainer {
   display: flex;
@@ -32,6 +34,7 @@ header {
 }
 .card {
   width: 30%;
+  min-height: 250px;
   min-width: 200px;
   background: #fff;
   border-radius: 25px;
@@ -50,6 +53,10 @@ header {
   text-align: center;
   font-size: 1.8rem;
 }
+.data {
+  width: 100%;
+  height: 50px;
+}
 .cardBody .btn {
   display: block;
   color: #fff;
@@ -59,6 +66,21 @@ header {
   text-decoration: none;
   padding: 10px 5px;
   border: none;
+  border-radius: 10px;
+}
+
+.inner {
+  background: rgb(9, 201, 153);
+    padding: 1em;
+    border-radius: 10px;
+    width: 100%;
+    clip-path: circle(10% at 90% 20%);
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      clip-path: circle(75%);
+      background: #00B6FF;
+  }
 }
 
 .card:hover {
@@ -69,13 +91,23 @@ header {
 // Responsive Media quieries
 
 @media screen and (max-width: 1000px) {
+  header {
+    height: 150px;
+  }
   .card {
     width: 45%;
   }
 }
 @media screen and (max-width: 620px) {
-  
+  header {
+    height: 250px;
+  }
   .card {
     width: 80%;
+  }
+}
+@media screen and (min-width: 403px) {
+  header {
+    height: 200px;
   }
 }

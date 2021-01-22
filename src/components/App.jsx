@@ -4,9 +4,11 @@ import '../assets/styles/App.scss';
 const App = () => {
 
   const [pokemons, setPokemons] = useState([]);
+  const [abilities, setAbilities] = useState([]);
+  const [abilitiesView, setAbilitiesView] = useState(true);
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokedex/')
+    fetch('https://pokeapi.co/api/v2/pokemon/')
       .then((response) => {
         const object = response.json();
         return object;
@@ -17,8 +19,20 @@ const App = () => {
       });
   }, []);
 
-  const handleClick = () => {
-    console.log('Click');
+  const handleClick = (abilitiesUrl) => {
+    fetch(`${abilitiesUrl}`)
+      .then((response) => {
+        const abilitiesArray = response.json();
+        console.log(abilitiesArray)
+        return abilitiesArray;
+      })
+      .then((abilitiesArray) => {
+        const { abilities } = abilitiesArray;
+        console.log(abilities);
+        setAbilities(abilities);
+        setAbilitiesView(!abilitiesView);
+        console.log(abilitiesView);
+      });
   };
 
   return (
@@ -37,8 +51,16 @@ const App = () => {
                     <h3>{pokemon.name}</h3>
                   </div>
                   <div className='cardBody'>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque excepturi cum repudiandae dolorum vel, qui quaerat nemo totam voluptatibus neque. Temporibus, minus. Inventore optio quae ea qui soluta recusandae officiis.</p>
-                    <a onClick={handleClick} className='btn'>Ver Habilidades</a>
+                    <div className='data'>
+                      {
+                        abilitiesView ? (
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque excepturi cum repudiandae dolorum vel, qui quaerat nemo totam voluptatibus neque. Temporibus, minus. Inventore optio quae ea qui soluta recusandae officiis.</p>
+                        ) : (
+                          <h4>Habilidades</h4>
+                        )
+                      }
+                    </div>
+                    <a onClick={() => handleClick(pokemon.url)} className='btn'>Ver Habilidades</a>
                   </div>
                 </div>
               );
