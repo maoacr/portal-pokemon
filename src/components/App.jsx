@@ -5,7 +5,7 @@ const App = () => {
 
   const [pokemons, setPokemons] = useState([]);
   const [abilities, setAbilities] = useState([]);
-  const [abilitiesView, setAbilitiesView] = useState(true);
+  const [poke, setPoke] = useState('');
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon/')
@@ -19,20 +19,27 @@ const App = () => {
       });
   }, []);
 
-  const handleClick = (abilitiesUrl) => {
-    fetch(`${abilitiesUrl}`)
-      .then((response) => {
-        const abilitiesArray = response.json();
-        console.log(abilitiesArray)
-        return abilitiesArray;
-      })
-      .then((abilitiesArray) => {
-        const { abilities } = abilitiesArray;
-        console.log(abilities);
-        setAbilities(abilities);
-        setAbilitiesView(!abilitiesView);
-        console.log(abilitiesView);
-      });
+  const handleClick = (abilitiesUrl, pokeName) => {
+    if(abilities.length === 0) {
+      fetch(`${abilitiesUrl}`)
+        .then((response) => {
+          const abilitiesArray = response.json();
+          console.log(abilitiesArray);
+          return abilitiesArray;
+        })
+        .then((abilitiesArray) => {
+          const { abilities } = abilitiesArray;
+          console.log(abilities);
+          setAbilities(abilities);
+        });
+    } else {
+      setAbilities([]);
+    }
+    if(!!poke) {
+      setPoke('');
+    } else {
+      setPoke(pokeName);
+    }
   };
 
   return (
@@ -53,14 +60,22 @@ const App = () => {
                   <div className='cardBody'>
                     <div className='data'>
                       {
-                        abilitiesView ? (
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque excepturi cum repudiandae dolorum vel, qui quaerat nemo totam voluptatibus neque. Temporibus, minus. Inventore optio quae ea qui soluta recusandae officiis.</p>
+                        pokemon.name === poke ? (
+                          <div className='abilityContainer'>
+                            {
+                              abilities.map((abl, i) => {
+                                return (
+                                  <h4 className='ability' key={i}>{abl.ability.name}</h4>
+                                );
+                              })
+                            }
+                          </div>
                         ) : (
-                          <h4>Habilidades</h4>
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque excepturi cum repudiandae dolorum vel, qui quaerat nemo totam voluptatibus neque.</p>
                         )
                       }
                     </div>
-                    <a onClick={() => handleClick(pokemon.url)} className='btn'>Ver Habilidades</a>
+                    <a onClick={() => handleClick(pokemon.url, pokemon.name)} className='btn'>Ver Habilidades</a>
                   </div>
                 </div>
               );
@@ -68,6 +83,9 @@ const App = () => {
           }
         </div>
       </main>
+      <footer>
+        <p>Hecho por <a href='https://github.com/maoacr' >@maoacr</a> 👨🏻‍💻</p>
+      </footer>
     </>
   );
 };
