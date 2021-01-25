@@ -2,14 +2,12 @@
   "name": "portal-pokemon",
   "version": "1.0.0",
   "description": "Portal pokemon",
-  "homepage": "https://maoacr.github.io/portal-pokemon/",
+  "homepage": "https://portal-pokemon.vercel.app/",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development --env development",
-    "predeploy": "npm run build-ghpages",
-    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -29,7 +27,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
-    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
