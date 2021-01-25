@@ -1,12 +1,15 @@
 {
   "name": "portal-pokemon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Portal pokemon",
+  "homepage": "https://maoacr.github.io/portal-pokemon/",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development --env development"
+    "start": "webpack serve --mode development --env development",
+    "predeploy": "npm run build-ghpages",
+    "build-ghpages": "gh-pages-build"
   },
   "repository": {
     "type": "git",
